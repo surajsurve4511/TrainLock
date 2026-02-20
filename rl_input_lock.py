@@ -53,7 +53,7 @@ CSS = """
 .warning-title  { color: #ff4444; font-size: 38px; font-weight: bold; }
 .training-text  { color: #ffffff; font-size: 28px; font-weight: bold; }
 .info-text      { color: #aaaaaa; font-size: 20px; }
-.marathi-text   { color: #ffdd88; font-size: 18px; }
+.marathi-text   { color: #ffdd88; font-size: 18px; font-family: "Lohit Devanagari", "Lohit Deva Marathi", "Gargi", "Sarai", "Noto Sans Devanagari", sans-serif; }
 .unlock-hint    { color: #888888; font-size: 14px; }
 .password-label { color: #cccccc; font-size: 18px; }
 
@@ -181,9 +181,9 @@ class LockScreen(Gtk.Window):
         self._label(vbox, "Please do NOT use or shut down this PC.",
                     'info-text', bottom=8)
 
-        self._label(vbox, "RL Model Training chalu aahe.",
+        self._label(vbox, "आरएल मॉडेल ट्रेनिंग चालू आहे।",
                     'marathi-text')
-        self._label(vbox, "Krupa ha PC band karu naka ani vaaparu naka.",
+        self._label(vbox, "कृपया हा पीसी बंद करू नका आणि वापरू नका।",
                     'marathi-text', bottom=10)
 
         sep2 = Gtk.Separator()
@@ -281,7 +281,8 @@ class LockScreen(Gtk.Window):
         return False
 
     def _check_password(self, entry):
-        if entry.get_text() == self.password:
+        user_input = entry.get_text().strip()  # Remove whitespace
+        if user_input == self.password:
             self.status.set_text("\u2713  Unlocking\u2026")
             sc = self.status.get_style_context()
             sc.remove_class('error-text')
